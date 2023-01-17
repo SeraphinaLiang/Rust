@@ -79,7 +79,7 @@ impl Expr {
             Var(id) => env.lookup(id).ok_or(format!("undefined variable: {}", id)),
             Asgn(id, expr) => {
                 let res = expr.eval(env)?;
-                env.assign(id.to_owned(), res);
+                env.assign(id.to_owned(), res); //  To convert a &str to a String, use the to_owned() method
                 Ok(res)
             }
             App(op, expr1, expr2) => {
@@ -147,4 +147,35 @@ fn tests() {
         Err("undefined variable: x".to_owned()),
         Var("x".to_owned()).eval_()
     );
+}
+
+
+/*  the purpose of ?
+the simplicity of unwrap without the possibility of a panic. 
+Until now, unwrap has forced us to nest deeper and deeper 
+when what we really wanted was to get the variable out. 
+
+Upon finding an Err, there are two valid actions to take:
+panic! : which we already decided to try to avoid if possible
+return : because an Err means it cannot be handled
+? is almost1 exactly equivalent to an unwrap which returns instead of panicking on Errs
+*/
+use std::num::ParseIntError;
+fn multiply(first_number_str: &str, second_number_str: &str) -> Result<i32, ParseIntError> {
+    let first_number = first_number_str.parse::<i32>()?;
+    let second_number = second_number_str.parse::<i32>()?;
+    // Before there was ?, the same functionality was achieved with the try! macro.
+    // let first_number = try!(first_number_str.parse::<i32>());
+    // let second_number = try!(second_number_str.parse::<i32>());
+    Ok(first_number * second_number)
+}
+fn print(result: Result<i32, ParseIntError>) {
+    match result {
+        Ok(n)  => println!("n is {}", n),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+fn main() {
+    print(multiply("10", "2"));
+    print(multiply("t", "2"));
 }

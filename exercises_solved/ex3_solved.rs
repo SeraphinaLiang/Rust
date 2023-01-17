@@ -22,14 +22,11 @@ enum Expr {
 // https://doc.rust-lang.org/rust-by-example/custom_types/enum/enum_use.html
 use self::Expr::*;
 // With this we can write:
-//
 //     match e {
 //         Lit(n) => ...
 //         ...
 //     }
-//
 // Without this, we would have to write:
-//
 //     match e {
 //         Expr::Lit(n) => ...
 //         ...

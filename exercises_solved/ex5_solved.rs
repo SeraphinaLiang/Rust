@@ -39,13 +39,10 @@ impl<T> Stack<T> {
     }
 
     /// Pop two elements of the `Stack` using `pop`.
-    ///
     /// Return `Ok((before_last, last))` when there are at least two elements
     /// on the `Stack`.
-    ///
     /// When there is only one element on the `Stack`, return an `Err` with
     /// "only one element on the stack" as error message.
-    ///
     /// When there are no elements on the `Stack`, return an `Err` with "no
     /// element on the stack" as error message.
     fn pop2(&mut self) -> Result<(T, T), String> {
@@ -60,8 +57,7 @@ impl<T> Stack<T> {
             self.pop().map_err(|_| "only one element on the stack".to_owned())
                 .map(|before_last| (before_last, last))
         })
-         */
-
+        */
     }
 
     /// Helper function that uses `pop2` to pop two operands from the `Stack`,
@@ -77,10 +73,8 @@ impl<T> Stack<T> {
 
     /// Pop the only element on the `Stack`. Typically used to retrieve the
     /// final result of the calculation.
-    ///
     /// When there are no elements on the `Stack`, return an `Err` with "no
     /// element on the stack" as error message.
-    ///
     /// When there is more than one element on the `Stack`, return an `Err`
     /// with "more than one element on the stack" as error message.
     fn pop_only(&mut self) -> Result<T, String> {
@@ -104,7 +98,6 @@ impl<T> Stack<T> {
 }
 
 /// Interpret the given string as a RPN calculation.
-///
 /// Return `Ok(last_element_on_stack)` when the RPN calculation succeeded,
 /// otherwise an `Err` containing an error message.
 pub fn rpn_calc(s: &str) -> Result<f32, String> {
